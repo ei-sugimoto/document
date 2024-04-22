@@ -130,7 +130,7 @@ $\boldsymbol{h}_i$
    $\boldsymbol{h}_i$
    が収束するまで次の式を適用. これによってノード
    $i$
-   の周辺の特徴を取り込む.
+   の周辺の特徴を取り込む。
 
    $
    \boldsymbol{h}_i
