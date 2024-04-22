@@ -91,10 +91,10 @@
 $$
 \begin{equation}
 a_{ij} =
-    \begin{cases}
-        1   &   ((i,j)\in E) \\
-        0   &   (otherwise)
-    \end{cases}
+\begin{cases}
+1   &   ((i,j)\in E) \\
+0   &   (otherwise)
+\end{cases}
 \end{equation}
 $$
 
