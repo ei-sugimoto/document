@@ -1,16 +1,5 @@
 # 1. GNN および GCN
 
-<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-<script type="text/x-mathjax-config">
- MathJax.Hub.Config({
- tex2jax: {
- inlineMath: [['$', '$'] ],
- displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
- }
- });
-</script>
-
 ## 1.1. 　グラフニューラルネットワーク(GNN)とは
 
 グラフニューラルネットワークとは、グラフデータをニューラルネットワークで扱うものの総称
@@ -130,7 +119,7 @@ $\boldsymbol{h}_i$
    $i$
    の周辺の特徴を取り込む。
 
-   $\boldsymbol{h}\_i \leftarrow  \sum_{j \in \mathcal{N}(i)} \mathcal{F}(\boldsymbol{h}_i, \boldsymbol{h}_j, \boldsymbol{F}_i^V, \boldsymbol{F}_j^V, \boldsymbol{F}^E_{ij} )$
+   $\boldsymbol{h}\_i \leftarrow  \sum_{j \in \mathcal{N}(i)} \mathcal{F}(\boldsymbol{h}_i, \boldsymbol{h}_j, \boldsymbol{F}_i^V, \boldsymbol{F}_j^V, \boldsymbol{F}^E )$
 
    $\mathcal{F}$: 学習される関数
 
