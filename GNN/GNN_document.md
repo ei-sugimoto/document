@@ -121,7 +121,11 @@ $\boldsymbol{\mathcal{L}} = \boldsymbol{D}^{- \frac{1}{2}}  \boldsymbol{L} \bold
 ノード
 $i$
 の潜在ベクトル
-$$\boldsymbol{h}_i = \sum_{j \in \mathcal{N}(i)} \mathcal{F}(\boldsymbol{h}_i, \boldsymbol{h}_j, \boldsymbol{F}_i^V,  \boldsymbol{F}_j^V, \boldsymbol{F}^E_{i, j})$$
+
+$$
+\boldsymbol{h}_i \leftarrow \sum_{j \in \mathcal{N}(i)} \mathcal{F}(\boldsymbol{h}_i, \boldsymbol{h}_j, \boldsymbol{F}_i^V,  \boldsymbol{F}_j^V, \boldsymbol{F}^E_{i, j})
+$$
+
 を求める
 
 1. 学習される関数である
