@@ -130,7 +130,8 @@ $\boldsymbol{h}_i$
    $i$
    の周辺の特徴を取り込む。
 
-   $\boldsymbol{h}\_i \leftarrow $
+   $\boldsymbol{h}\_i \leftarrow  \sum_{j \in \mathcal{N}(i)} $
+$
 
    $\mathcal{F}$: 学習される関数
 
@@ -138,7 +139,7 @@ $\boldsymbol{h}_i$
 
    $\mathcal{N}_i(k)$: ノード $i$ から距離 $k$ 以内にあるノードの集合
 
-2. 学習される関数 $\mathcal{O()}$ であるを用いて, 出力を計算.
+1. 学習される関数 $\mathcal{O()}$ であるを用いて, 出力を計算.
 
 $$
 \begin{equation}
