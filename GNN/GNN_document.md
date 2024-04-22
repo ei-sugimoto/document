@@ -86,7 +86,7 @@
 
 - グラフ$G=(V, E)$
 
-- 隣接行列$\boldsymbol{A} = (a_{ij})$
+- 隣接行列　$\boldsymbol{A} = (a_{ij})$
 
 $$
 \begin{equation}
@@ -100,11 +100,11 @@ $$
 
 を満たす重みなしのグラフを考える
 
-ラプラシアン行列 $\boldsymbol{L} = \boldsymbol{D} - \boldsymbol{A}$
+ラプラシアン行列 　$\boldsymbol{L} = \boldsymbol{D} - \boldsymbol{A}$
 
 $\boldsymbol{D}$: 次数行列(degree matrix)
 
-正規化ラプラシアン行列 $\boldsymbol{\mathcal{L}} = \boldsymbol{D}^{- \frac{1}{2}}  \boldsymbol{L} \boldsymbol{D}^{- \frac{1}{2}} = \boldsymbol{I} - \boldsymbol{D}^{- \frac{1}{2}}  \boldsymbol{A} \boldsymbol{D}^{- \frac{1}{2}}$
+正規化ラプラシアン行列 　$\boldsymbol{\mathcal{L}} = \boldsymbol{D}^{- \frac{1}{2}}  \boldsymbol{L} \boldsymbol{D}^{- \frac{1}{2}} = \boldsymbol{I} - \boldsymbol{D}^{- \frac{1}{2}}  \boldsymbol{A} \boldsymbol{D}^{- \frac{1}{2}}$
 
 (例)
 
@@ -114,9 +114,9 @@ $\boldsymbol{D}$: 次数行列(degree matrix)
 
 ### GNN の計算
 
-ノード$i$の潜在ベクトル$\boldsymbol{h}_i$を求める
+ノード$i$の潜在ベクトル　$\boldsymbol{h}_i$を求める
 
-1. 学習される関数である$\mathcal{F()}$を用いて, 潜在ベクトル$\boldsymbol{h}_i$が収束するまで次の式を適用. これによってノード
+1. 学習される関数である$\mathcal{F()}$を用いて, 潜在ベクトル　$\boldsymbol{h}_i$が収束するまで次の式を適用. これによってノード
    $i$の周辺の特徴を取り込む.
 
    $$
@@ -144,12 +144,12 @@ $$
 ### GCN の計算
 
 - 入力
-  - 隣接行列$\boldsymbol{A} \in \mathbb{R}^{n \times n}$
+  - 隣接行列　$\boldsymbol{A} \in \mathbb{R}^{n \times n}$
     - どのノードとどのノードが繋がっているかを表す行列。
-  - 特徴行列$\boldsymbol{X} \in \mathbb{R}^{n \times |X|}$
+  - 特徴行列　$\boldsymbol{X} \in \mathbb{R}^{n \times |X|}$
     - 各ノードの特徴ベクトルを表す行列。
 - 出力
-  - 潜在行列$\boldsymbol{H}_{out} \in \mathbb{R}^{n \times |H|}$
+  - 潜在行列　$\boldsymbol{H}_{out} \in \mathbb{R}^{n \times |H|}$
     - 各ノードの潜在表現ベクトルを表す行列。(GCN による変換済)
 
 $$
