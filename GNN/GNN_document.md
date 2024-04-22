@@ -133,11 +133,11 @@ $\boldsymbol{D}$: 次数行列(degree matrix)
 
 2. 学習される関数$\mathcal{O()}$であるを用いて, 出力を計算.
 
-   $$
-   \begin{equation}
-   \hat{y}_i = \mathcal{O}(\boldsymbol{h}_i \boldsymbol{F}_i^V)
-   \end{equation}
-   $$
+$$
+\begin{equation}
+\hat{y}_i = \mathcal{O}(\boldsymbol{h}_i \boldsymbol{F}_i^V)
+\end{equation}
+$$
 
 重みは, $\hat{y}_i$と教師ラベルの誤差を最小化するようにステップ 1, 2 と誤差逆伝搬を繰り返すことで学習される
 
