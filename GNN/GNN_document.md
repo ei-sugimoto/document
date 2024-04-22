@@ -130,7 +130,9 @@ $\boldsymbol{h}_i$
    $i$
    の周辺の特徴を取り込む。
 
-   $\boldsymbol{h}\_i \leftarrow $
+   $$
+   \boldsymbol{h}\_i \leftarrow
+   $$
 
    $\mathcal{F}$: 学習される関数
 
