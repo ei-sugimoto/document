@@ -10,8 +10,6 @@
  }
  });
 </script>
-<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax:{inlineMath:[['\$','\$'],['\\(','\\)']],processEscapes:true},CommonHTML: {matchFontHeight:false}});</script>
-<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 ## 1.1. 　グラフニューラルネットワーク(GNN)とは
 
@@ -132,7 +130,7 @@ $\boldsymbol{h}_i$
    $i$
    の周辺の特徴を取り込む。
 
-   $\boldsymbol{h}_i$
+   $\boldsymbol{h}\_i \leftarrow $
 
    $\mathcal{F}$: 学習される関数
 
