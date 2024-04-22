@@ -116,10 +116,19 @@ $\boldsymbol{\mathcal{L}} = \boldsymbol{D}^{- \frac{1}{2}}  \boldsymbol{L} \bold
 
 ### GNN の計算
 
-ノード$i$の潜在ベクトル　$\boldsymbol{h}_i$を求める
+ノード
+$i$
+の潜在ベクトル
+$\boldsymbol{h}_i$
+を求める
 
-1. 学習される関数である$\mathcal{F()}$を用いて, 潜在ベクトル　$\boldsymbol{h}_i$が収束するまで次の式を適用. これによってノード
-   $i$の周辺の特徴を取り込む.
+1. 学習される関数である
+   $\mathcal{F()}$
+   を用いて, 潜在ベクトル
+   $\boldsymbol{h}_i$
+   が収束するまで次の式を適用. これによってノード
+   $i$
+   の周辺の特徴を取り込む.
 
    $$
    \begin{equation}
