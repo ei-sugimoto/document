@@ -132,9 +132,9 @@ $\boldsymbol{h}_i$
    $i$
    の周辺の特徴を取り込む.
 
-   $$
+   $
    \boldsymbol{h}_i \leftarrow \sum_{j \in \mathcal{N}(i)} \mathcal{F}(\boldsymbol{h}_i, \boldsymbol{h}_j, \boldsymbol{F}_i^V,  \boldsymbol{F}_j^V, \boldsymbol{F}^E_{i,j})
-   $$
+   $
 
    $\mathcal{F}$: 学習される関数
 
@@ -155,12 +155,15 @@ $$
 ### GCN の計算
 
 - 入力
-  - 隣接行列　$\boldsymbol{A} \in \mathbb{R}^{n \times n}$
+  - 隣接行列
+    $\boldsymbol{A} \in \mathbb{R}^{n \times n}$
     - どのノードとどのノードが繋がっているかを表す行列。
-  - 特徴行列　$\boldsymbol{X} \in \mathbb{R}^{n \times |X|}$
+  - 特徴行列
+    $\boldsymbol{X} \in \mathbb{R}^{n \times |X|}$
     - 各ノードの特徴ベクトルを表す行列。
 - 出力
-  - 潜在行列　$\boldsymbol{H}_{out} \in \mathbb{R}^{n \times |H|}$
+  - 潜在行列
+    $\boldsymbol{H}_{out} \in \mathbb{R}^{n \times |H|}$
     - 各ノードの潜在表現ベクトルを表す行列。(GCN による変換済)
 
 $$
