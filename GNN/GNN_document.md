@@ -130,7 +130,7 @@ $\boldsymbol{h}_i$
    $i$
    の周辺の特徴を取り込む。
 
-   $\boldsymbol{h}\_i \leftarrow  \sum_{j \in \mathcal{N}(i)} \mathcal{F}(\boldsymbol{h}_i, \boldsymbol{h}_j, \boldsymbol{F}_i^V, \boldsymbol{F}_j^V, \boldsymbol{F}_ij^E )$
+   $\boldsymbol{h}\_i \leftarrow  \sum_{j \in \mathcal{N}(i)} \mathcal{F}(\boldsymbol{h}_i, \boldsymbol{h}_j, \boldsymbol{F}_i^V, \boldsymbol{F}_j^V, \boldsymbol{F}_i_j^E )$
 
    $\mathcal{F}$: 学習される関数
 
