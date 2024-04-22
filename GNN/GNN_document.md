@@ -119,8 +119,7 @@ $\boldsymbol{h}_i$
    $i$
    の周辺の特徴を取り込む。
 
-   $\boldsymbol{h}\_i \leftarrow  \sum_{j \in \mathcal{N}(i)} \mathcal{F}(\boldsymbol{h}_i, \boldsymbol{h}_j, \boldsymbol{F}_i^V, \boldsymbol{F}_j^V \boldsymbol{F}_{ij}^E )$
-
+   $\boldsymbol{h}\_i \leftarrow  \sum_{j \in \mathcal{N}(i)} \mathcal{F}(\boldsymbol{h}_i, \boldsymbol{h}_j, \boldsymbol{F}_i^V, \boldsymbol{F}_j^V$
    $\boldsymbol{F}_{ij}^E$
 
    $\mathcal{F}$: 学習される関数
@@ -129,7 +128,7 @@ $\boldsymbol{h}_i$
 
    $\mathcal{N}_i(k)$: ノード $i$ から距離 $k$ 以内にあるノードの集合
 
-1. 学習される関数 $\mathcal{O()}$ であるを用いて, 出力を計算.
+2. 学習される関数 $\mathcal{O()}$ であるを用いて, 出力を計算.
 
 $$
 \begin{equation}
