@@ -86,7 +86,7 @@
 
 - グラフ $G=(V, E)$
 
-- 隣接行列　$\boldsymbol{A} = (a_{ij})$
+- 隣接行列 $\boldsymbol{A} = (a_{ij})$
 
 $$
 \begin{equation}
@@ -100,7 +100,8 @@ $$
 
 を満たす重みなしのグラフを考える
 
-ラプラシアン行列 　$\boldsymbol{L} = \boldsymbol{D} - \boldsymbol{A}$
+ラプラシアン行列
+$\boldsymbol{L} = \boldsymbol{D} - \boldsymbol{A}$
 
 $\boldsymbol{D}$: 次数行列(degree matrix)
 
