@@ -132,7 +132,7 @@ $\boldsymbol{h}_i$
 
    $$
    \begin{equation}
-   \boldsymbol{h}_i \leftarrow \sum_{j \in \mathcal{N}(i)} \mathcal{F}(\boldsymbol{h}_i, \boldsymbol{h}_j, \boldsymbol{F}_i^V,  \boldsymbol{F}_j^V, \boldsymbol{F}^E_{i,j})
+   \boldsymbol{h}_i \leftarrow \sum_{j \in \mathcal{N}(i)} \mathcal{F}(\boldsymbol{h}_i`,` \boldsymbol{h}_j`,` \boldsymbol{F}_i^V`,`  \boldsymbol{F}_j^V`,` \boldsymbol{F}^E_{i`,`j})
    \end{equation}
    $$
 
