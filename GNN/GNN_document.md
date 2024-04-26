@@ -63,7 +63,7 @@
     - 近傍のノードから特徴情報を集める処理としてグラフ畳み込みを定義
     - 長所・短所:直感的に理解しやすい・非常に多くのバリエーション
 
-そもそも、講義的な GNN は以下の数だけある
+そもそも、広義的な GNN は以下の数だけある
 
 <div style="background-color: white; width:80%">
   <img src="image-5.png" alt="alt text">
@@ -153,8 +153,9 @@ $$
 
 $$
 \begin{equation}
-f(H^{(0)}, A) = ReLU(\hat{D}^{-\frac{1}{2}}\hat{A} \hat{D}^{-\frac{1}{2}} X \cdot W)
+f(H^{(0)}, A) = ReLU(\hat{\boldsymbol{D}}^{-\frac{1}{2}}\hat{\boldsymbol{A}} \hat{\boldsymbol{D}}^{-\frac{1}{2}} \boldsymbol{X} \cdot \boldsymbol{W})
 \end{equation}
 $$
 
-$ReLU()$:
+- $ReLU()$: ニューラルネットワークの活性化関数の一つ。入力が 0 以下の場合は 0 を、それ以外の場合は入力そのものを出力
+- $\hat{\boldsymbol{A}}$: $\boldsymbol{A} + \boldsymbol{I}$
