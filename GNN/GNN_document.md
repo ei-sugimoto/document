@@ -159,3 +159,4 @@ $$
 
 - $ReLU()$: ニューラルネットワークの活性化関数の一つ。入力が 0 以下の場合は 0 を、それ以外の場合は入力そのものを出力
 - $\hat{\boldsymbol{A}}$: $\boldsymbol{A} + \boldsymbol{I}$
+- $\boldsymbol{W}$: 重み行列
