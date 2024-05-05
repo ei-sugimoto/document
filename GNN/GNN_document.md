@@ -12,10 +12,10 @@
 - レコメンドシステム
   - ユーザーとアイテムの関係性（クリックしたか・購入したか・お気に入り登録したか等）をグラフの辺としてみなす
   - このグラフ構造に対して GNN を適用することで、従来の手法よりも性能の高いレコメンドシステムを構成
-
-<div style="display: flex; justify-content: space-around;">
-  <img src="image.png" alt="alt text" style="width: 45%;">
-  <img src="image-1.png" alt="alt text" style="width: 45%;">
+    <!-- markdownlint-disable MD033 -->
+    <div style="display: flex; justify-content: space-around;">
+      <img src="image.png" alt="alt text" style="width: 45%;">
+      <img src="image-1.png" alt="alt text" style="width: 45%;">
 
 </div>
 
@@ -89,19 +89,180 @@ $$
 
 を満たす重みなしのグラフを考える
 
+<img src="examplegraph.png" alt="alt text">
+
+隣接行列　$\boldsymbol{A}$
+
+$$
+\begin{pmatrix}
+0 & 1 & 1 & 0 & 0 \\
+1 & 0 & 1 & 1 & 0 \\
+1 & 1 & 0 & 1 & 0 \\
+0 & 1 & 1 & 0 & 1 \\
+0 & 0 & 0 & 1 & 0 \\
+\end{pmatrix}
+$$
+
+次数行列　$\boldsymbol{D}$
+
+$$
+\begin{pmatrix}
+2 & 0 & 0 & 0 & 0 \\
+0 & 3 & 0 & 0 & 0 \\
+0 & 0 & 3 & 0 & 0 \\
+0 & 0 & 0 & 3 & 0 \\
+0 & 0 & 0 & 0 & 1 \\
+\end{pmatrix}
+$$
+
 ラプラシアン行列
 $\boldsymbol{L} = \boldsymbol{D} - \boldsymbol{A}$
 
 $\boldsymbol{D}$: 次数行列(degree matrix)
 
+ラプラシアン行列　$\boldsymbol{L}$
+
+$$
+\begin{pmatrix}
+2 & -1 & -1 & 0 & 0 \\
+-1 & 3 & -1 & -1 & 0 \\
+-1 & -1 & 3 & -1 & 0 \\
+0 & -1 & -1 & 3 & -1 \\
+0 & 0 & 0 & -1 & 1 \\
+\end{pmatrix}
+$$
+
 正規化ラプラシアン行列
 $\boldsymbol{\mathcal{L}} = \boldsymbol{D}^{- \frac{1}{2}}  \boldsymbol{L} \boldsymbol{D}^{- \frac{1}{2}} = \boldsymbol{I} - \boldsymbol{D}^{- \frac{1}{2}}  \boldsymbol{A} \boldsymbol{D}^{- \frac{1}{2}}$
 
-(例)
+$\boldsymbol{D}^{- \frac{1}{2}}$ の計算
 
-<div style="background-color: white; width:80%">
-  <img src="image-4.png" alt="alt text">
-</div>
+$$
+\begin{equation}
+  \boldsymbol{D}^{- \frac{1}{2}} =
+  \begin{pmatrix}
+    0.70710678 & 0 & 0 & 0 & 0 \\
+    0 & 0.57735027 & 0 & 0 & 0 \\
+    0 & 0 & 0.57735027 & 0 & 0 \\
+    0 & 0 & 0 & 0.57735027 & 0 \\
+    0 & 0 & 0 & 0 & 1 \\
+  \end{pmatrix}
+\end{equation}
+$$
+
+値が大きいほど、$-\frac{1}{2}$乗の値が小さくなる
+ここから、正規化ラプラシアン行列を計算すると、
+
+$$
+\begin{equation}
+  \boldsymbol{\mathcal{L}} =
+  \begin{pmatrix}
+    1 & -0.40824829 & -0.40824829 & 0 & 0 \\
+    -0.40824829 & 1 &  -0.33333333 &  -0.33333333 & 0 \\
+    -0.40824829 &  -0.33333333 & 1 & 0 & 0 \\
+    0 &  -0.33333333 &  -0.33333333 & 1 & -0.57735027 \\
+    0 & 0 & 0 & -0.57735027 & 1 \\
+  \end{pmatrix}
+\end{equation}
+$$
+
+対角成分が全て 1、非対角成分では-1
+
+$$
+\begin{equation}
+  \boldsymbol{\mathcal{L}}[i, j] =
+  \boldsymbol{\mathcal{L}}[j, i] =
+  \frac{-1}{\sqrt{ノードiの次数}\sqrt{ノードjの次数}}
+\end{equation}
+$$
+
+次数の高いノードに関係するエッジほど値が小さくなる
+**次数の高いノード間を繋ぐエッジほど重みが小さく，次数の低いノード間を繋ぐエッジほど重みが大きく**
+$\boldsymbol{\mathcal{L}}[1, 2] = -0.333...$
+$\boldsymbol{\mathcal{L}}[0, 1] = -0.408...$
+$\boldsymbol{\mathcal{L}}[3, 4] = -0.577...$ ← ノード ④ は次数が低いので一番重くなる
+
+### 1.3.2.グラフラプラシアンの固有値分解
+
+ノードの数$\boldsymbol{N}$とする。
+また、グラフラプラシアン$\boldsymbol{L}$を固有値分解すると、固有ベクトル$\mathcal{u}_1,\mathcal{u}_2,\mathcal{u}_3..., \mathcal{u}_{\boldsymbol{N}}$と、固有値$\lambda_1, \lambda_2,..., \lambda_{\boldsymbol{N}}$が得られる。
+
+ラプラシアン行列　$\boldsymbol{L}$
+
+$$
+\begin{pmatrix}
+2 & -1 & -1 & 0 & 0 \\
+-1 & 3 & -1 & -1 & 0 \\
+-1 & -1 & 3 & -1 & 0 \\
+0 & -1 & -1 & 3 & -1 \\
+0 & 0 & 0 & -1 & 1 \\
+\end{pmatrix}
+$$
+
+この固有値分解は、
+$[\lambda_1, \lambda_2, \lambda_3, \lambda_4, \lambda_5]= [0, 0.82991, 2.68889, 4, 4.48119]$
+これらに対応する固有ベクトルは、
+
+$$
+\begin{equation}
+  \boldsymbol{U} =
+  [u_1, u_2, u_3 u_4, u_5] =
+  \begin{pmatrix}
+    -0.44721 &  0.43753   & -0.70308  & 0         & 0.338 \\
+    -0.44721 &  0.25597   & 0.24217   & 0.70711   & -0.41932 \\
+    -0.44721 &  0.25597   & 0.24217   & -0.70711  & -0.41932 \\
+    -0.44721 &  -0.13802  & 0.53625   & 0         & 0.70242 \\
+    -0.44721 &  -0.81146  & -0.31752  & 0         & -0.20177 \\
+  \end{pmatrix}
+\end{equation}
+$$
+
+![alt text](image-6.png)
+
+**固有値が小さいほど変化が小さく，固有値が大きいほど変化が大きい**ことが分かる
+グラフラプラシアンの固有値$\lambda$は、グラフの周波数
+グラフラプラシアンの固有ベクトル$u$は、グラフのフーリエ基底
+と見れる。
+また、グラフラプラシアンは実対称行列であるため、固有ベクトル同士は、正規直交基底となる。
+
+### 1.3.2.グラフフーリエ変換
+
+まず、通常の時系列のフーリエ変換は、
+
+$$
+\begin{equation}
+ {F}(\omega) = \int_{-\infty}^{\infty} f(t) * e^{-j\omega t}dt
+\end{equation}
+$$
+
+$$
+\begin{equation}
+  f(t) =\frac{1}{2\pi} \int_{-\infty}^{\infty}{F}(\omega) * e^{j\omega t}dt
+\end{equation}
+$$
+
+時系列フーリエ変換では、固有関数である $\boldsymbol{e^{j\omega t}}$ とシグナル $\boldsymbol{f(t)}$ の積の積分である。これを、グラフに対応すると、**固有ベクトルとグラフシグナルの積の和**として、考えることができる。
+
+グラフシグナルの(例)
+
+- 交通ネットワーク：各ノードが交差点や駅を表し、エッジが道路や鉄道を表す場合、通行量や遅延時間などの交通情報がグラフシグナルとなる。
+- インターネット：各ノードがウェブサイトを表し、エッジがハイパーリンクを表す場合、ウェブサイトの訪問者数やページランクなどの情報がグラフシグナルとなる。
+- 気象ネットワーク：各ノードが地理的な位置（都市や地域）を表し、エッジがそれらの間の気象パターンの相関を表す場合、気温、湿度、風速などの気象データが各ノードに紐づく値となり、これらはグラフシグナルとななる。
+
+これでグラフフーリエ変換の式を理解することができる。
+
+$$
+\begin{equation}
+  F(\lambda_i) = \sum_{k=0}^{N-1}f(k) * u_{\lambda_i}(k)
+\end{equation}
+$$
+
+グラフフーリエ変換では、解析したいグラフシグナルについて、 $u_1, u_2, ..., u_N$ という基底を固有値領域においてそれぞれ程度の量を持っているか調べる。
+![alt text](image-7.png)
+![alt text](image-8.png)
+![alt text](image-9.png)
+
+**グラフフーリエ変換によって，グラフ信号を周波数解析することが可能**となった。
 
 ### GNN の計算
 
