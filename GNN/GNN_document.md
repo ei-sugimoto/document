@@ -208,7 +208,7 @@ $$
   \boldsymbol{U} =
   [u_1, u_2, u_3 u_4, u_5] =
   \begin{pmatrix}
-    -0.44721 &  0.43753   & -0.70308  & 0         & 0.338 \\
+    -0.44721 &  0   & -0.70308  & 0         & 0.338 \\
     -0.44721 &  0.25597   & 0.24217   & 0.70711   & -0.41932 \\
     -0.44721 &  0.25597   & 0.24217   & -0.70711  & -0.41932 \\
     -0.44721 &  -0.13802  & 0.53625   & 0         & 0.70242 \\
@@ -263,6 +263,106 @@ $$
 ![alt text](image-9.png)
 
 **グラフフーリエ変換によって，グラフ信号を周波数解析することが可能**となった。
+
+### 1.3.3 グラフのフィルタリング
+
+先ほどの例にローパスフィルタをかける。
+![alt text](image-10.png)
+ローパスフィルタなので、グラフ周波数が３以上をフィルタにかける。よって、$\lambda_4 = \lambda_5 = 0$ となる。
+また、逆グラフフーリエ変換をすることで、フィルタがかけられた信号を出力する。
+$$
+\begin{equation}
+  f(k) =
+  \sum_{i=0}^{N-1}F(\lambda_i) * u_{\lambda_i}(k)
+\end{equation}
+$$
+![alt text](image-11.png)
+
+### 1.3.4 まとめ
+
+グラフラプシアン$L$の固有値分解は、
+$$
+\begin{equation}
+  L =
+  U \Delta U
+\end{equation}
+$$
+なお、
+
+$U := [u_1,u_2,...,u_N]$
+$\Delta := [\lambda_1, \lambda_2,...,\lambda_N]$
+
+#### グラフフーリエ変換の行列式に変換
+
+$$
+\begin{equation}
+  F(\lambda_i) = \sum_{k=0}^{N-1}f(k) * u_{\lambda_i}(k)
+\end{equation}
+$$
+これは、
+$$
+\begin{equation}
+  F = U^Tf
+\end{equation}
+$$
+
+また、逆フーリエ変換の行列式は
+$$
+\begin{equation}
+  f = U^TF
+\end{equation}
+$$
+
+#### 先ほどのフィルタリングの操作を行列式で行うと
+
+1. グラフ信号を周波数領域に変換
+
+    $F = U^Tf$
+
+2. 周波数領域でフィルタリングなどの処理を行う．周波数領域でフィルタリングなどの処理を行う．
+    ![alt](image-12.png)
+
+    $f_{filtered} = U^TF_{filtered}$
+
+![alt text](image-13.png)
+
+いかにフィルタカーネルを探すか...
+→ 機械学習で見つける
+
+例えば、分類タスクの場合だと、クロスエントロピーロスを使用して，ロスを逆伝搬したとする。
+
+最適なフィルタは、($g_{\theta}(\Delta)$)は、
+
+  $$
+  \begin{equation}
+    \boldsymbol{g_{\theta}(\Delta)} =
+    \begin{pmatrix}
+    \Theta(\lambda_1) &  0          & \cdots  & \cdots  & 0 \\
+    0         &  \Theta(\lambda_2)  & 0       & \cdots  & 0 \\
+    \vdots    &  \vdots     & \ddots  & 0       & 0 \\
+    \vdots    &  \vdots     & \vdots  & \ddots  & 0 \\
+    0         &  0          & 0       & 0       & \Theta(\lambda_N)\\
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+    \theta_1  &  0          & \cdots  & \cdots  & 0 \\
+    0         &  \theta_2   & 0       & \cdots  & 0 \\
+    \vdots    &  \vdots     & \ddots  & 0       & 0 \\
+    \vdots    &  \vdots     & \vdots  & \ddots  & 0 \\
+    0         &  0          & 0       & 0       & \theta_N \\
+    \end{pmatrix}
+
+  \end{equation}
+  $$
+
+これにより、$f_{filtered}$は、
+  $$
+  \begin{equation}
+    f_{filtered} = Ug_{\theta}(\Delta)U^Tf
+  \end{equation}
+  $$
+  
+### 1.3.5 問題点
 
 ### GNN の計算
 
