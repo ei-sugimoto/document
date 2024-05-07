@@ -284,13 +284,13 @@ $$
 $$
 \begin{equation}
   L =
-  U \Delta U
+  U \mathcal{H} U
 \end{equation}
 $$
 なお、
 
 $U := [u_1,u_2,...,u_N]$
-$\Delta := [\lambda_1, \lambda_2,...,\lambda_N]$
+$\mathcal{H} := [\lambda_1, \lambda_2,...,\lambda_N]$
 
 #### グラフフーリエ変換の行列式に変換
 
@@ -315,14 +315,14 @@ $$
 
 #### 先ほどのフィルタリングの操作を行列式で行うと
 
-1. グラフ信号を周波数領域に変換
+  1. グラフ信号を周波数領域に変換
 
-    $F = U^Tf$
+      $F = U^Tf$
 
-2. 周波数領域でフィルタリングなどの処理を行う．周波数領域でフィルタリングなどの処理を行う．
-    ![alt](image-12.png)
+  2. 周波数領域でフィルタリングなどの処理を行う．周波数領域でフィルタリングなどの処理を行う．
+      ![alt](image-12.png)
 
-    $f_{filtered} = U^TF_{filtered}$
+      $f_{filtered} = U^TF_{filtered}$
 
 ![alt text](image-13.png)
 
@@ -331,11 +331,11 @@ $$
 
 例えば、分類タスクの場合だと、クロスエントロピーロスを使用して，ロスを逆伝搬したとする。
 
-最適なフィルタは、($g_{\theta}(\Delta)$)は、
+最適なフィルタは、($g_{\theta}(\mathcal{H})$)は、
 
-  $$
+$$
   \begin{equation}
-    \boldsymbol{g_{\theta}(\Delta)} =
+    g_{\theta}( \mathcal{H}) =
     \begin{pmatrix}
     \Theta(\lambda_1) &  0          & \cdots  & \cdots  & 0 \\
     0         &  \Theta(\lambda_2)  & 0       & \cdots  & 0 \\
@@ -351,18 +351,76 @@ $$
     \vdots    &  \vdots     & \vdots  & \ddots  & 0 \\
     0         &  0          & 0       & 0       & \theta_N \\
     \end{pmatrix}
-
   \end{equation}
-  $$
+$$
 
 これにより、$f_{filtered}$は、
-  $$
+$$
   \begin{equation}
-    f_{filtered} = Ug_{\theta}(\Delta)U^Tf
+    f_{filtered} = Ug_{\theta}(\mathcal{H})U^Tf
   \end{equation}
-  $$
-  
+$$
+
 ### 1.3.5 問題点
+
+グラフフーリエ変換では、グラフ全体の情報からノードiがどのようなグラフシグナルを持っているかを導出する。
+つまり、**ノード$i$からみた時，ノード$j$が隣にあっても遠いところにあっても一緒**に見られる。
+よって、近傍の情報を活用するようにフィルタカーネルを設計する。
+
+### 1.3.6 多項式カーネル
+
+フィルタカーネルを以下に設定
+$$
+  \begin{equation}
+    g_{\theta}(\mathcal{H}) =
+    \sum_{k=0}^{K-1}\theta_k\mathcal{H}^k
+  \end{equation}
+$$
+
+$\mathcal{H} := [\lambda_1, \lambda_2,...,\lambda_N]$
+であるため、
+$$
+  \begin{equation}
+    g_{\theta}(\mathcal{H})
+    =
+    \begin{pmatrix}
+      \theta_0 \lambda_1^0 + \theta_1 \lambda_1^1 + \cdots & 0 & \cdots & 0\\
+      0 &  \theta_0 \lambda_2^0 + \theta_1 \lambda_2^1 + \cdots & \cdots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \cdots &  \theta_0 \lambda_N^0 + \theta_1 \lambda_N^1 + \cdots\\
+    \end{pmatrix}
+  \end{equation}
+$$
+
+- $\mathcal{H}^0$が0次近傍、自分自身
+- $\mathcal{H}^1$が1次近傍、1つ隣のノード
+- $\mathcal{H}^２$が2次近傍、2つ隣のノード
+- $\mathcal{H}^k$がk次近傍、kつ隣のノード
+
+また、$\theta$は、
+
+- $\theta_0$が0次近傍の情報をどの程度使うのか(重み)
+- $\theta_1$が1次近傍の情報をどの程度使うのか(重み)
+- $\theta_k$がk次近傍の情報をどの程度使うのか(重み)
+
+(例)
+フィルタカーネルの最適化が以下である場合だと、
+$\theta_0 = 0.3　\theta_1 = 0.5　\theta_2 = 0.1$
+重要度は 1次近傍＞0次近傍＞2次近傍
+
+### 1.3.7 計算量
+
+グラフラプラシアン$L$の計算量が、$O(N^3)$
+フィルタリングの行列演算が、$O(N^2)$
+固有値分解は1回のみでいいが、フィルタリングの行列演算は、エポック数M(学習回数)回する必要があるため、$O(N^2M)$
+ノードが増えれば増えるほど、計算量が大きくなる。
+
+### 1.3.8 ChebNet（チェビシェフの多項式による多項式フィルタカーネルの近似）
+
+多項式フィルタカーネルにおけるフィルタリングの計算量を$O(K|\bold{\epsilon}|)$に減らせる。$K$は近傍$K$で、$|\bold{\epsilon}|$がエッジの本数。多くのグラフでは、$N^2 > K|\bold{\epsilon}|$であるため計算量が小さくなる。
+$\mathcal{T}_0(x) = 1　\mathcal{T}_1(x) = x　\mathcal{T}_k(x) = 2x\mathcal{T}_{k-1}(x) - \mathcal{T}_{k-2}$
+
+今日はここまで！！！！　TODO：続き
 
 ### GNN の計算
 
@@ -390,11 +448,11 @@ $\boldsymbol{h}_i$
 
 2. 学習される関数 $\mathcal{O()}$ であるを用いて, 出力を計算.
 
-$$
-\begin{equation}
-\hat{y}_i = \mathcal{O}(\boldsymbol{h}_i \boldsymbol{F}_i^V)
-\end{equation}
-$$
+    $$
+    \begin{equation}
+    \hat{y}_i = \mathcal{O}(\boldsymbol{h}_i \boldsymbol{F}_i^V)
+    \end{equation}
+    $$
 
 重みは, $\hat{y}_i$と教師ラベルの誤差を最小化するようにステップ 1, 2 と誤差逆伝搬を繰り返すことで学習される
 
